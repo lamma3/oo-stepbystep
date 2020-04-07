@@ -22,7 +22,7 @@ public class TeacherTest {
         schoolClass.assignTeacher(teacher);
 
         Assert.assertEquals(teacher, schoolClass.getTeacher());
-        Assert.assertEquals(schoolClass, teacher.getSchoolClassList().get(0));
+        Assert.assertTrue(teacher.isTeaching(schoolClass));
     }
 
     @Test(expected = TeacherClassListFullException.class)

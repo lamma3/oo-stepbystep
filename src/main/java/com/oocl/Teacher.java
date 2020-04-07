@@ -8,8 +8,8 @@ import java.util.List;
 public class Teacher extends Person {
     private List<SchoolClass> schoolClassList = new ArrayList<>();
 
-    public List<SchoolClass> getSchoolClassList() {
-        return schoolClassList;
+    public boolean isTeaching(SchoolClass schoolClass) {
+        return schoolClassList.contains(schoolClass);
     }
 
     @Override
