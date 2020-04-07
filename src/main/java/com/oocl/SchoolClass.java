@@ -28,11 +28,16 @@ public class SchoolClass {
         return teacher;
     }
 
-    public void registerStudent(Student student) {
-        studentList.add(student);
-        student.setSchoolClass(this);
+    public void registerStudent(Student newStudent) {
+        studentList.add(newStudent);
+        newStudent.setSchoolClass(this);
         if (teacher != null) {
-            teacher.printWelcomeMessage(this, student);
+            teacher.printWelcomeMessage(this, newStudent);
+        }
+        for (Student existingStudent: this.studentList) {
+            if (existingStudent != newStudent) {
+                existingStudent.printWelcomeMessage(newStudent);
+            }
         }
     }
 
