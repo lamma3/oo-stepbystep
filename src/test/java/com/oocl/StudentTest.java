@@ -49,4 +49,21 @@ public class StudentTest {
 
         Assert.assertEquals("My name is Tom. I am 18 years old. I am a student of class 2. Coding for the glory of OOCL. Welcome Jim join Class 2." ,outContent.toString());
     }
+
+    @Test
+    public void testPrintLeaderMessage_shouldPrint() throws Exception {
+        SchoolClass schoolClass = new SchoolClass();
+        schoolClass.setClassNumber(2);
+        Student student1 = new Student();
+        student1.setName("Tom");
+        student1.setAge(18);
+        schoolClass.registerStudent(student1);
+        Student student2 = new Student();
+        student2.setName("Jim");
+        schoolClass.registerStudent(student2);
+        outContent.reset();
+        schoolClass.assignClassLeader(student2);
+
+        Assert.assertEquals("My name is Tom. I am 18 years old. I am a student of class 2. Coding for the glory of OOCL. Jim is the leader of Class 2." ,outContent.toString());
+    }
 }

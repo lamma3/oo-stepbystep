@@ -20,4 +20,9 @@ public class Student extends Person {
         String message = String.format("%s Welcome %s join Class %d.", introduce(), newStudent.getName(), this.getSchoolClass().getClassNumber());
         System.out.print(message);
     }
+
+    public void printLeaderMessage(Student newStudent) {
+        String message = String.format("%s %s is the leader of Class %d.", introduce(), newStudent.getName(), this.getSchoolClass().getClassNumber());
+        System.out.print(message);
+    }
 }

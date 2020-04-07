@@ -49,6 +49,11 @@ public class SchoolClass {
         if (teacher != null) {
             teacher.printLeaderMessage(this, classLeader);
         }
+        for (Student existingStudent: this.studentList) {
+            if (existingStudent != classLeader) {
+                existingStudent.printLeaderMessage(classLeader);
+            }
+        }
     }
 
     public void assignTeacher(Teacher teacher) throws TeacherClassListFullException {
