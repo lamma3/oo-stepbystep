@@ -1,5 +1,7 @@
 package com.oocl;
 
+import com.oocl.exception.StudentNotFoundException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +27,10 @@ public class SchoolClass {
         student.setSchoolClass(this);
     }
 
-    public void assignClassLeader(Student classLeader) {
-        if (studentList.contains(classLeader)) {
-            this.classLeader = classLeader;
+    public void assignClassLeader(Student classLeader) throws StudentNotFoundException {
+        if (!studentList.contains(classLeader)) {
+            throw new StudentNotFoundException();
         }
+        this.classLeader = classLeader;
     }
 }
