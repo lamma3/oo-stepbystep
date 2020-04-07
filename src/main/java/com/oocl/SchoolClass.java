@@ -1,6 +1,7 @@
 package com.oocl;
 
 import com.oocl.exception.StudentNotFoundException;
+import com.oocl.exception.TeacherClassListFullException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ public class SchoolClass {
     private Integer classNumber;
     private List<Student> studentList = new ArrayList<>();
     private Student classLeader;
+    private Teacher teacher;
 
     public Integer getClassNumber() {
         return classNumber;
@@ -22,6 +24,10 @@ public class SchoolClass {
         return classLeader;
     }
 
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
     public void registerStudent(Student student) {
         studentList.add(student);
         student.setSchoolClass(this);
@@ -32,5 +38,10 @@ public class SchoolClass {
             throw new StudentNotFoundException();
         }
         this.classLeader = classLeader;
+    }
+
+    public void assignTeacher(Teacher teacher) throws TeacherClassListFullException {
+        teacher.registerClass(this);
+        this.teacher = teacher;
     }
 }
