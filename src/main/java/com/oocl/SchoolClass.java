@@ -41,6 +41,9 @@ public class SchoolClass {
             throw new StudentNotFoundException();
         }
         this.classLeader = classLeader;
+        if (teacher != null) {
+            teacher.printLeaderMessage(this, classLeader);
+        }
     }
 
     public void assignTeacher(Teacher teacher) throws TeacherClassListFullException {

@@ -85,4 +85,32 @@ public class TeacherTest {
 
         Assert.assertEquals("" ,outContent.toString());
     }
+
+    @Test
+    public void testPrintLeaderMessage_whenHaveTeacher_shouldPrint() throws Exception {
+        SchoolClass schoolClass = new SchoolClass();
+        schoolClass.setClassNumber(2);
+        Student student = new Student();
+        student.setName("Tom");
+        schoolClass.registerStudent(student);
+        Teacher teacher = new Teacher();
+        teacher.setName("Woody");
+        teacher.setAge(30);
+        schoolClass.assignTeacher(teacher);
+        schoolClass.assignClassLeader(student);
+
+        Assert.assertEquals("My name is Woody. I am 30 years old. Teaching for the future of world. Tom is the leader of Class 2." ,outContent.toString());
+    }
+
+    @Test
+    public void testPrintLeaderMessage_whenNoTeacher_shouldPrint() throws Exception {
+        SchoolClass schoolClass = new SchoolClass();
+        schoolClass.setClassNumber(2);
+        Student student = new Student();
+        student.setName("Tom");
+        schoolClass.registerStudent(student);
+        schoolClass.assignClassLeader(student);
+
+        Assert.assertEquals("" ,outContent.toString());
+    }
 }

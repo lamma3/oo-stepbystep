@@ -32,4 +32,9 @@ public class Teacher extends Person {
         String message = String.format("%s Welcome %s join Class %d.", introduce(), student.getName(), schoolClass.getClassNumber());
         System.out.print(message);
     }
+
+    public void printLeaderMessage(SchoolClass schoolClass, Student student) {
+        String message = String.format("%s %s is the leader of Class %d.", introduce(), student.getName(), schoolClass.getClassNumber());
+        System.out.print(message);
+    }
 }
