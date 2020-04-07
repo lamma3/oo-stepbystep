@@ -7,10 +7,11 @@ public class StudentTest {
 
     @Test
     public void testIntroduce_shouldReturnNameAndAge() {
-        Person person = new Student();
-        person.setName("Tom");
-        person.setAge(18);
+        Student student = new Student();
+        student.setName("Tom");
+        student.setAge(18);
+        student.setClassNumber(2);
 
-        Assert.assertEquals("My name is Tom. I am 18 years old. Coding for the glory of OOCL.", person.introduce());
+        Assert.assertEquals("My name is Tom. I am 18 years old. I am a student of class 2. Coding for the glory of OOCL.", student.introduce());
     }
 }
