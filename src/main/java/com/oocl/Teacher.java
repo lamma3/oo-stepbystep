@@ -27,4 +27,9 @@ public class Teacher extends Person {
         }
         schoolClassList.add(schoolClass);
     }
+
+    public void printWelcomeMessage(SchoolClass schoolClass, Student student) {
+        String message = String.format("%s Welcome %s join Class %d.", introduce(), student.getName(), schoolClass.getClassNumber());
+        System.out.print(message);
+    }
 }

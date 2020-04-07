@@ -1,10 +1,28 @@
 package com.oocl;
 
 import com.oocl.exception.TeacherClassListFullException;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 public class TeacherTest {
+
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
+    @Before
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @After
+    public void restoreStreams() {
+        System.setOut(originalOut);
+    }
 
     @Test
     public void testIntroduce_shouldReturnNameAndAge() {
@@ -40,5 +58,31 @@ public class TeacherTest {
         schoolClass4.assignTeacher(teacher);
         schoolClass5.assignTeacher(teacher);
         schoolClass6.assignTeacher(teacher);
+    }
+
+    @Test
+    public void testPrintWelcomeMessage_whenHaveTeacher_shouldPrint() throws Exception {
+        SchoolClass schoolClass = new SchoolClass();
+        schoolClass.setClassNumber(2);
+        Teacher teacher = new Teacher();
+        teacher.setName("Woody");
+        teacher.setAge(30);
+        schoolClass.assignTeacher(teacher);
+        Student student = new Student();
+        student.setName("Tom");
+        schoolClass.registerStudent(student);
+
+        Assert.assertEquals("My name is Woody. I am 30 years old. Teaching for the future of world. Welcome Tom join Class 2." ,outContent.toString());
+    }
+
+    @Test
+    public void testPrintWelcomeMessage_whenNoTeacher_shouldNotPrint() {
+        SchoolClass schoolClass = new SchoolClass();
+        schoolClass.setClassNumber(2);
+        Student student = new Student();
+        student.setName("Tom");
+        schoolClass.registerStudent(student);
+
+        Assert.assertEquals("" ,outContent.toString());
     }
 }

@@ -31,6 +31,9 @@ public class SchoolClass {
     public void registerStudent(Student student) {
         studentList.add(student);
         student.setSchoolClass(this);
+        if (teacher != null) {
+            teacher.printWelcomeMessage(this, student);
+        }
     }
 
     public void assignClassLeader(Student classLeader) throws StudentNotFoundException {
