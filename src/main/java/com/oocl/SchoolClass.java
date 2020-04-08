@@ -34,7 +34,7 @@ public class SchoolClass {
 
     public void registerStudent(Student newStudent) {
         studentList.add(newStudent);
-        newStudent.setSchoolClass(this);
+        newStudent.setClassNumber(this.classNumber);
         registerStudentToClassSubject.setState(this, newStudent);
         registerStudentToClassSubject.attachObserver(newStudent);
         assignLeaderSubject.attachObserver(newStudent);
