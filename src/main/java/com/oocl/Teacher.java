@@ -1,11 +1,15 @@
 package com.oocl;
 
 import com.oocl.exception.TeacherClassListFullException;
+import com.oocl.observer.AssignLeaderObserver;
+import com.oocl.observer.AssignLeaderSubject;
+import com.oocl.observer.RegisterStudentToClassObserver;
+import com.oocl.observer.RegisterStudentToClassSubject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Teacher extends Person {
+public class Teacher extends Person implements RegisterStudentToClassObserver, AssignLeaderObserver {
     private List<SchoolClass> schoolClassList = new ArrayList<>();
 
     public boolean isTeaching(SchoolClass schoolClass) {
@@ -28,13 +32,21 @@ public class Teacher extends Person {
         schoolClassList.add(schoolClass);
     }
 
-    public void printWelcomeMessage(SchoolClass schoolClass, Student student) {
-        String message = String.format("%s Welcome %s join Class %d.", introduce(), student.getName(), schoolClass.getClassNumber());
+    private void printWelcomeMessage(Integer classNumber, String studentName) {
+        String message = String.format("%s Welcome %s join Class %d.", introduce(), studentName, classNumber);
         System.out.print(message);
     }
 
-    public void printLeaderMessage(SchoolClass schoolClass, Student student) {
-        String message = String.format("%s %s is the leader of Class %d.", introduce(), student.getName(), schoolClass.getClassNumber());
+    private void printLeaderMessage(Integer classNumber, String studentName) {
+        String message = String.format("%s %s is the leader of Class %d.", introduce(), studentName, classNumber);
         System.out.print(message);
+    }
+
+    public void update(RegisterStudentToClassSubject subject) {
+        printWelcomeMessage(subject.getClassNumber(), subject.getNewStudentName());
+    }
+
+    public void update(AssignLeaderSubject subject) {
+        printLeaderMessage(subject.getClassNumber(), subject.getLeaderName());
     }
 }

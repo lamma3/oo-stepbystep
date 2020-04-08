@@ -2,6 +2,8 @@ package com.oocl;
 
 import com.oocl.exception.StudentNotFoundException;
 import com.oocl.exception.TeacherClassListFullException;
+import com.oocl.observer.AssignLeaderSubject;
+import com.oocl.observer.RegisterStudentToClassSubject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,8 @@ public class SchoolClass {
     private List<Student> studentList = new ArrayList<>();
     private Student classLeader;
     private Teacher teacher;
+    private RegisterStudentToClassSubject registerStudentToClassSubject = new RegisterStudentToClassSubject();
+    private AssignLeaderSubject assignLeaderSubject = new AssignLeaderSubject();
 
     public Integer getClassNumber() {
         return classNumber;
@@ -31,14 +35,9 @@ public class SchoolClass {
     public void registerStudent(Student newStudent) {
         studentList.add(newStudent);
         newStudent.setSchoolClass(this);
-        if (teacher != null) {
-            teacher.printWelcomeMessage(this, newStudent);
-        }
-        for (Student existingStudent: this.studentList) {
-            if (existingStudent != newStudent) {
-                existingStudent.printWelcomeMessage(newStudent);
-            }
-        }
+        registerStudentToClassSubject.setState(this, newStudent);
+        registerStudentToClassSubject.attachObserver(newStudent);
+        assignLeaderSubject.attachObserver(newStudent);
     }
 
     public void assignClassLeader(Student classLeader) throws StudentNotFoundException {
@@ -46,18 +45,13 @@ public class SchoolClass {
             throw new StudentNotFoundException();
         }
         this.classLeader = classLeader;
-        if (teacher != null) {
-            teacher.printLeaderMessage(this, classLeader);
-        }
-        for (Student existingStudent: this.studentList) {
-            if (existingStudent != classLeader) {
-                existingStudent.printLeaderMessage(classLeader);
-            }
-        }
+        assignLeaderSubject.setState(this, classLeader);
     }
 
     public void assignTeacher(Teacher teacher) throws TeacherClassListFullException {
         teacher.registerClass(this);
         this.teacher = teacher;
+        registerStudentToClassSubject.attachObserver(teacher);
+        assignLeaderSubject.attachObserver(teacher);
     }
 }
