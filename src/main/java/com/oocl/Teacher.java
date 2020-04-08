@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Teacher extends Person implements RegisterStudentToClassObserver, AssignLeaderObserver {
-    private List<SchoolClass> schoolClassList = new ArrayList<>();
+    private List<Integer> classNumberList = new ArrayList<>();
 
     public boolean isTeaching(SchoolClass schoolClass) {
-        return schoolClassList.contains(schoolClass);
+        return classNumberList.contains(schoolClass.getClassNumber());
     }
 
     @Override
@@ -22,14 +22,14 @@ public class Teacher extends Person implements RegisterStudentToClassObserver, A
     }
 
     public Boolean isClassListFull() {
-        return this.schoolClassList.size() >= 5;
+        return this.classNumberList.size() >= 5;
     }
 
     public void registerClass(SchoolClass schoolClass) throws TeacherClassListFullException {
         if (isClassListFull()) {
             throw new TeacherClassListFullException();
         }
-        schoolClassList.add(schoolClass);
+        classNumberList.add(schoolClass.getClassNumber());
     }
 
     private void printWelcomeMessage(Integer classNumber, String studentName) {
